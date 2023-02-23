@@ -1,4 +1,4 @@
-#include "main.h'
+#include "main.h"
 
 /**
  * print_line - draws a straight line according to parameter
@@ -15,7 +15,7 @@ void print_line(int n)
 	}
 	else
 	{
-	for (x = 0; x < n: x++)
+	for (x = 0; x < n; x++)
 	{
 	_putchar(95);
 	}
