@@ -17,24 +17,24 @@ int main(int argc, char *argv[])
 
 	if (argc > 1)
 	{
-		for (i = 1; i < argc; i++)
-		{
-			e = argv[i];
-			for (k = 0; k < strlen(e); k++)
-			{
-			if (e[k] < 48 || e[k] > 57)
-			{
-				printf("Error\n");
-				return (1);
-			}
-			}
-		}
-		sum += atoi(e);
-		e++;
+	for (i = 1; i < argc; i++)
+	{
+	e = argv[i];
+	for (k = 0; k < strlen(e); k++)
+	{
+	if (e[k] < 48 || e[k] > 57)
+	{
+	printf("Error\n");
+	return (1);
+	}
+	}
+	}
+	sum += atoi(e);
+	e++;
 	}
 	else
 	{
-		printf("0\n");
+	printf("0\n");
 	}
 	return (0);
 }
