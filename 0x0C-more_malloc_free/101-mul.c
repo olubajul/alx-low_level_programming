@@ -13,7 +13,7 @@ void _print(char *str, int l)
 	int i, j;
 
 	i = j = 0;
-	while (i < 1)
+	while (i < l)
 	{
 		if (str[i] != '0')
 			j = 1;
@@ -73,7 +73,7 @@ int check_for_digits(char **av)
 	{
 		for (j = 0; av[i][j]; j++)
 		{
-			if (av[i][j] < '0' || av[i][j] > 9)
+			if (av[i][j] < '0' || av[i][j] > '9')
 				return (1);
 		}
 	}
