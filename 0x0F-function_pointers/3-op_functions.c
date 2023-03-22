@@ -1,5 +1,6 @@
 #include "function_pointers.h"
-#include <stdio.h> 
+#include <stdio.h>
+#include <stdlib.h>
 
 /**
  * op_add - returns the sum of a and b
