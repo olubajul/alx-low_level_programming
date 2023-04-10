@@ -1,6 +1,5 @@
 #include <elf.h>
 #include <sys/types.h>
-#include <sys/stats.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -31,7 +30,7 @@ void check_elf(unsigned char *e_ident)
 		if (e_ident[index] != 127 && e_ident[index] != 'E' &&
 			e_ident[index] != 'L' && e_ident[index] != 'F')
 		{
-			dprintf(STDERR_FILENO, "Error: Not an ELFfile\n");
+			dprintf(STDERR_FILENO, "Error: Not an ELF file\n");
 			exit(98);
 		}
 	}
@@ -50,7 +49,7 @@ void print_magic(unsigned char *e_ident)
 	for (index = 0; index < EI_NIDENT; index++)
 	{
 		printf("%02x", e_ident[index]);
-		if (index == EI_IDENT - 1)
+		if (index == EI_NIDENT - 1)
 			printf("\n");
 		else
 			printf(" ");
@@ -61,7 +60,7 @@ void print_magic(unsigned char *e_ident)
  * print_class - prints the class of an ELF header
  * @e_ident: pointer to an array containing the ELF class
  */
-void print_class(unsigned char *e_ident);
+void print_class(unsigned char *e_ident)
 {
 	printf("  Class:                            ");
 	switch (e_ident[EI_CLASS])
@@ -99,7 +98,7 @@ void print_data(unsigned char *e_ident)
 		printf("2's complement, big endian\n");
 		break;
 	default:
-		printf("<unknown: %x>\n" e_ident[EI_CLASS]);
+		printf("<unknown: %x>\n", e_ident[EI_CLASS]);
 	}
 }
 
@@ -209,7 +208,7 @@ void print_type(unsigned int e_type, unsigned char *e_ident)
 }
 
 /**
- * print_entry - prints the entry of an ELF header
+ * print_entry - prints the entry point of an ELF header
  * @e_entry: address of the ELF entry point
  * @e_ident: pointer to an array containing the ELF class
  * Description: If the file is not an ELF file, or on error,
@@ -226,7 +225,7 @@ void print_entry(unsigned long int e_entry, unsigned char *e_ident)
 	if (e_ident[EI_CLASS] == ELFCLASS32)
 		printf("%#x\n", (unsigned int)e_entry);
 	else
-		printf("%#1x\n", e_entry);
+		printf("%#1x\n", (unsigned int)e_entry);
 }
 
 /**
@@ -258,7 +257,7 @@ int main(int __attribute__((__unused__)) argc, char *argv[])
 	Elf64_Ehdr *header;
 	int o, r;
 
-	o - open(argv[1], O_RDONLY);
+	o = open(argv[1], O_RDONLY);
 	if (o == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't read file %s\n", argv[1]);
@@ -276,7 +275,7 @@ int main(int __attribute__((__unused__)) argc, char *argv[])
 	{
 		free(header);
 		close_elf(o);
-		dprintf(STDERR_FILENO, "Error: '%s': No such file\n", argv[!]);
+		dprintf(STDERR_FILENO, "Error: '%s': No such file\n", argv[1]);
 		exit(98);
 	}
 	check_elf(header->e_ident);
@@ -285,8 +284,8 @@ int main(int __attribute__((__unused__)) argc, char *argv[])
 	print_class(header->e_ident);
 	print_data(header->e_ident);
 	print_version(header->e_ident);
-	print_abi(header->e_ident);
 	print_osabi(header->e_ident);
+	print_abi(header->e_ident);
 	print_type(header->e_type, header->e_ident);
 	print_entry(header->e_entry, header->e_ident);
 
