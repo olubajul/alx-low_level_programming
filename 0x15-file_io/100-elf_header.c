@@ -1,4 +1,4 @@
-i/*
+/*
  * File: 100-eif_header.c
  * Auth: Brennan D Baraban
  */
